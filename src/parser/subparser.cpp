@@ -116,7 +116,7 @@ void snellConstruct(Proxy &node, const std::string &group, const std::string &re
     node.SnellVersion = version;
 }
 
-void wireguardConstruct(Proxy &node, const std::string &group, const std::string &remarks, const std::string &server, const std::string &port, const std::string &selfIp, const std::string &selfIpv6, const std::string &privKey, const std::string &pubKey, const std::string &psk, const string_array &dns, const std::string &mtu, const std::string &keepalive, const std::string &testUrl, const std::string &clientId, const tribool &udp) {
+void wireguardConstruct(Proxy &node, const std::string &group, const std::string &remarks, const std::string &server, const std::string &port, const std::string &selfIp, const std::string &selfIpv6, const std::string &privKey, const std::string &pubKey, const std::string &psk, const string_array &dns, const std::string &mtu, const std::string &keepalive, const std::string &testUrl, const std::string &clientId, const tribool &udp,const tribool &remoteDnsResolve) {
     commonConstruct(node, ProxyType::WireGuard, group, remarks, server, port, udp, tribool(), tribool(), tribool());
     node.SelfIP = selfIp;
     node.SelfIPv6 = selfIpv6;
@@ -128,6 +128,7 @@ void wireguardConstruct(Proxy &node, const std::string &group, const std::string
     node.KeepAlive = to_int(keepalive);
     node.TestUrl = testUrl;
     node.ClientId = clientId;
+    node.RemoteDnsResolve = remoteDnsResolve;
 }
 
 void explodeVmess(std::string vmess, Proxy &node)

@@ -95,6 +95,7 @@ struct Proxy
     String PreSharedKey;
     StringArray DnsServers;
     uint16_t Mtu = 0;
+    tribool RemoteDnsResolve;
     String AllowedIPs = "0.0.0.0/0, ::/0";
     uint16_t KeepAlive = 0;
     String TestUrl;
