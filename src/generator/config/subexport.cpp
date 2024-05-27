@@ -478,7 +478,7 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
             if(x.Mtu > 0)
                 singleproxy["mtu"] = x.Mtu;
             if(!x.RemoteDnsResolve.is_undef())
-                singleproxy["remote-dns-resolve"] = x.RemoteDnsResolve;
+                singleproxy["remote-dns-resolve"] = x.RemoteDnsResolve.get();
             break;
         default:
             continue;
