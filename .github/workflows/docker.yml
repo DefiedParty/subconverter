@@ -22,12 +22,18 @@ jobs:
           - platform: linux/386
             os: ubuntu-latest
           - platform: linux/arm/v7
-            os: [self-hosted, linux, ARM]
+            os: ubuntu-latest
           - platform: linux/arm64
-            os: [self-hosted, linux, ARM64]
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     name: Build ${{ matrix.platform }} Image
     steps:
+      - name: Setup QEMU
+        if: contains(matrix.platform, 'arm')
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: ${{ matrix.platform }}
+
       - name: Prepare
         run: |
           platform=${{ matrix.platform }}
