@@ -1189,7 +1189,6 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes)
             singleproxy["preshared-key"] >>= password;
             singleproxy["ip"] >>= ip;
             singleproxy["ipv6"] >>= ipv6;
-            singleproxy["remote-dns-resolve"] >>= remote_dns_resolve;
 
             wireguardConstruct(node, group, ps, server, port, ip, ipv6, private_key, public_key, password, dns_server, mtu, "0", "", "", udp, remote_dns_resolve);
             break;
