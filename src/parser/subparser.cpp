@@ -981,7 +981,7 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes)
     std::string user; //socks
     std::string ip, ipv6, private_key, public_key, mtu; //wireguard
     string_array dns_server;
-    tribool udp, tfo, scv;
+    tribool udp, tfo, scv, remote_dns_resolve;
     Node singleproxy;
     uint32_t index = nodes.size();
     const std::string section = yamlnode["proxies"].IsDefined() ? "proxies" : "Proxy";
@@ -997,6 +997,7 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes)
             continue;
         udp = safe_as<std::string>(singleproxy["udp"]);
         scv = safe_as<std::string>(singleproxy["skip-cert-verify"]);
+        remote_dns_resolve = safe_as<std::string>(singleproxy["remote-dns-resolve"]);
         switch(hash_(proxytype))
         {
         case "vmess"_hash:
@@ -1188,8 +1189,9 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes)
             singleproxy["preshared-key"] >>= password;
             singleproxy["ip"] >>= ip;
             singleproxy["ipv6"] >>= ipv6;
+            singleproxy["remote-dns-resolve"] >>= remote_dns_resolve;
 
-            wireguardConstruct(node, group, ps, server, port, ip, ipv6, private_key, public_key, password, dns_server, mtu, "0", "", "", udp);
+            wireguardConstruct(node, group, ps, server, port, ip, ipv6, private_key, public_key, password, dns_server, mtu, "0", "", "", udp, remote_dns_resolve);
             break;
         default:
             continue;
@@ -1400,7 +1402,7 @@ bool explodeSurge(std::string surge, std::vector<Proxy> &nodes)
         std::string version, aead = "1";
         std::string itemName, itemVal, config;
         std::vector<std::string> configs, vArray, headers, header;
-        tribool udp, tfo, scv, tls13;
+        tribool udp, tfo, scv, tls13, remote_dns_resolve;
         Proxy node;
 
         /*
@@ -1788,10 +1790,13 @@ bool explodeSurge(std::string surge, std::vector<Proxy> &nodes)
                 case "keepalive"_hash:
                     keepalive = itemVal;
                     break;
+                case "remote-dns-resolve"_hash:
+                    remote_dns_resolve = itemVal;
+                    break;
                 }
             }
 
-            wireguardConstruct(node, WG_DEFAULT_GROUP, remarks, "", "0", ip, ipv6, private_key, "", "", dns_servers, mtu, keepalive, test_url, "", udp);
+            wireguardConstruct(node, WG_DEFAULT_GROUP, remarks, "", "0", ip, ipv6, private_key, "", "", dns_servers, mtu, keepalive, test_url, "", udp, remote_dns_resolve);
             parsePeers(node, peer);
             break;
         default:
