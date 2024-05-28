@@ -140,6 +140,7 @@ namespace qjs
             JS_DefinePropertyValueStr(ctx, obj, "PreSharedKey", JS_NewString(ctx, n.PreSharedKey), JS_PROP_C_W_E);
             JS_DefinePropertyValueStr(ctx, obj, "DnsServers", js_traits<StringArray>::wrap(ctx, n.DnsServers), JS_PROP_C_W_E);
             JS_DefinePropertyValueStr(ctx, obj, "Mtu", JS_NewUint32(ctx, n.Mtu), JS_PROP_C_W_E);
+            JS_DefinePropertyValueStr(ctx, obj, "RemoteDnsResolve", js_traits<tribool>::wrap(ctx, n.RemoteDnsResolve), JS_PROP_C_W_E);
             JS_DefinePropertyValueStr(ctx, obj, "AllowedIPs", JS_NewString(ctx, n.AllowedIPs), JS_PROP_C_W_E);
             JS_DefinePropertyValueStr(ctx, obj, "KeepAlive", JS_NewUint32(ctx, n.KeepAlive), JS_PROP_C_W_E);
             JS_DefinePropertyValueStr(ctx, obj, "TestUrl", JS_NewString(ctx, n.TestUrl), JS_PROP_C_W_E);
@@ -195,6 +196,7 @@ namespace qjs
             node.PreSharedKey = unwrap_free<std::string>(ctx, v, "PreSharedKey");
             node.DnsServers = unwrap_free<StringArray>(ctx, v, "DnsServers");
             node.Mtu = unwrap_free<uint32_t>(ctx, v, "Mtu");
+            node.RemoteDnsResolve = unwrap_free<tribool>(ctx, v, "RemoteDnsResolve");
             node.AllowedIPs = unwrap_free<std::string>(ctx, v, "AllowedIPs");
             node.KeepAlive = unwrap_free<uint32_t>(ctx, v, "KeepAlive");
             node.TestUrl = unwrap_free<std::string>(ctx, v, "TestUrl");
