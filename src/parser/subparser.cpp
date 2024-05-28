@@ -117,7 +117,7 @@ void snellConstruct(Proxy &node, const std::string &group, const std::string &re
 }
 
 void wireguardConstruct(Proxy &node, const std::string &group, const std::string &remarks, const std::string &server, const std::string &port, const std::string &selfIp, const std::string &selfIpv6, const std::string &privKey, const std::string &pubKey, const std::string &psk, const string_array &dns, const std::string &mtu, const std::string &keepalive, const std::string &testUrl, const std::string &clientId, const tribool &udp,const tribool &remoteDnsResolve) {
-    commonConstruct(node, ProxyType::WireGuard, group, remarks, server, port, udp, tribool(), tribool(), tribool());
+    commonConstruct(node, ProxyType::WireGuard, group, remarks, server, port, udp, remoteDnsResolve, tribool(), tribool());
     node.SelfIP = selfIp;
     node.SelfIPv6 = selfIpv6;
     node.PrivateKey = privKey;
